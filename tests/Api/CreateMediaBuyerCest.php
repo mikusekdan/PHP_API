@@ -63,13 +63,7 @@ class CreateMediaBuyerCest
         $I->seeResponseIsJson();
         $I->seeHttpHeader('Content-Type', 'application/json');
 
-        $I->seeResponseContainsJson([
-            'errors' => [
-                [
-                    'detail' => 'This field is missing: [name]',
-                ],
-            ],
-        ]);
+        $I->seeErrorDetail('This field is missing: [name]');
     }
 
     public function shouldReturnBadRequestWhenEmailIsInvalid(ApiTester $I): void
@@ -84,13 +78,7 @@ class CreateMediaBuyerCest
         $I->seeResponseIsJson();
         $I->seeHttpHeader('Content-Type', 'application/json');
 
-        $I->seeResponseContainsJson([
-            'errors' => [
-                [
-                    'detail' => 'The email not-an-email is not a valid email.',
-                ],
-            ],
-        ]);
+        $I->seeErrorDetail('The email not-an-email is not a valid email.');
     }
 
     #[\Codeception\Attribute\Examples(['A'])]

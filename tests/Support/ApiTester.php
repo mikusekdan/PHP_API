@@ -23,7 +23,10 @@ class ApiTester extends \Codeception\Actor
 {
     use _generated\ApiTesterActions;
 
-    /**
-     * Define custom actions here
-     */
+    public function seeErrorDetail(string $message): void
+    {
+        $this->seeResponseContainsJson([
+            'errors' => [['detail' => $message]],
+        ]);
+    }
 }
