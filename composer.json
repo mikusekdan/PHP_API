@@ -1,0 +1,17 @@
+{
+    "name": "mikusek/php_api",
+    "description": "API Automation Task",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Mikusek\\PhpApi\\": "src/"
+        }
+    },
+    "minimum-stability": "stable",
+    "require-dev": {
+        "codeception/codeception": "^5.3",
+        "codeception/module-phpbrowser": "^4.0",
+        "codeception/module-asserts": "*",
+        "codeception/module-rest": "^3.4"
+    }
+}

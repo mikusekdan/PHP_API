@@ -1,0 +1,8 @@
+vendor/
+tests/_output/*
+!tests/_output/.gitignore
+tests/Support/_generated/*
+!tests/Support/_generated/.gitignore
+*.docx
+*.pdf
+.env

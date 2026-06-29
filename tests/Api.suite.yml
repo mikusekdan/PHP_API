@@ -1,0 +1,9 @@
+actor: ApiTester
+suite_namespace: Tests\Api
+
+modules:
+  enabled:
+    - PhpBrowser:
+        url: http://localhost
+    - REST:
+        depends: PhpBrowser
