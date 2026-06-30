@@ -15,12 +15,12 @@ class MediaBuyerClient
 
     public function create(array $payload): void
     {
-        $this->I->sendPost('/api/mediabuyers', $payload);
+        $this->I->sendPost('/mediabuyers', $payload);
     }
 
     public function getAll(): void
     {
-        $this->I->sendGet('/api/mediabuyers');
+        $this->I->sendGet('/mediabuyers');
     }
 
     public function grabResponse(): array

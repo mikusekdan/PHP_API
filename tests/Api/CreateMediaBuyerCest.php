@@ -26,8 +26,7 @@ class CreateMediaBuyerCest
         $this->client->create($payload);
 
         $I->seeResponseCodeIs(HttpCode::OK);
-        $I->seeResponseIsJson();
-        $I->seeHttpHeader('Content-Type', 'application/json');
+        $I->seeJsonContentType();
 
         $I->seeResponseIsValidOnJsonSchema(
             codecept_root_dir('tests/schemas/post-media-buyer-schema.json')
@@ -60,8 +59,7 @@ class CreateMediaBuyerCest
         $this->client->create($payload);
 
         $I->seeResponseCodeIs(HttpCode::BAD_REQUEST);
-        $I->seeResponseIsJson();
-        $I->seeHttpHeader('Content-Type', 'application/json');
+        $I->seeJsonContentType();
 
         $I->seeErrorDetail('This field is missing: [name]');
     }
@@ -75,8 +73,7 @@ class CreateMediaBuyerCest
         $this->client->create($payload);
 
         $I->seeResponseCodeIs(HttpCode::BAD_REQUEST);
-        $I->seeResponseIsJson();
-        $I->seeHttpHeader('Content-Type', 'application/json');
+        $I->seeJsonContentType();
 
         $I->seeErrorDetail('The email not-an-email is not a valid email.');
     }
@@ -94,8 +91,7 @@ class CreateMediaBuyerCest
         $this->client->create($payload);
 
         $I->seeResponseCodeIs(HttpCode::BAD_REQUEST);
-        $I->seeResponseIsJson();
-        $I->seeHttpHeader('Content-Type', 'application/json');
+        $I->seeJsonContentType();
     }
 
     public function shouldReturnConflictWhenMbIdAlreadyExists(ApiTester $I): void
@@ -108,7 +104,6 @@ class CreateMediaBuyerCest
         $this->client->create($payload);
 
         $I->seeResponseCodeIs(HttpCode::CONFLICT);
-        $I->seeResponseIsJson();
-        $I->seeHttpHeader('Content-Type', 'application/json');
+        $I->seeJsonContentType();
     }
 }

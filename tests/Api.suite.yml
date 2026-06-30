@@ -4,6 +4,6 @@ suite_namespace: Tests\Api
 modules:
   enabled:
     - PhpBrowser:
-        url: http://localhost
+        url: http://localhost/api
     - REST:
         depends: PhpBrowser

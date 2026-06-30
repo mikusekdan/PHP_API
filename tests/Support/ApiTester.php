@@ -23,6 +23,12 @@ class ApiTester extends \Codeception\Actor
 {
     use _generated\ApiTesterActions;
 
+    public function seeJsonContentType(): void
+    {
+        $this->seeResponseIsJson();
+        $this->seeHttpHeader('Content-Type', 'application/json');
+    }
+
     public function seeErrorDetail(string $message): void
     {
         $this->seeResponseContainsJson([

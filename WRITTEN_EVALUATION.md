@@ -58,6 +58,8 @@ The Builder generates reusable request payloads.
 
 Instead of duplicating request JSON inside every test, each test starts from a valid payload and modifies only the fields relevant for that scenario.
 
+I chose Builder over Factory because a Factory would produce complete, fixed objects — meaning each negative test scenario would require either a dedicated factory or combining Factory with Builder anyway. Builder alone makes it straightforward to start from a valid payload and change only the specific field under test, which is more practical for API testing.
+
 Benefits:
 
 * reusable payloads
@@ -107,25 +109,11 @@ This reduces duplicated code and makes adding new boundary cases straightforward
 
 # 3. How would you approach contract-drift detection so that a backend change to this API automatically triggers test updates and review? Include tooling and process.
 
-I would use an OpenAPI specification as the single source of truth for the API contract.
-
-The OpenAPI document would be version-controlled together with the application code.
-
-Whenever the contract changes:
-
-* the OpenAPI specification is updated
-* a Pull Request is created
-* schema validation tests are executed in CI
-* reviewers verify both implementation and automated tests
-
-For runtime validation I would use contract testing tools such as:
-
-* OpenAPI validation
-* Prism
-* WireMock
-* Pact (where appropriate)
+In this project I used JSON Schema validation as a lightweight form of contract testing. In a larger project I would adopt an OpenAPI specification as the single source of truth for the API contract — versioned alongside the application code — so that any change to the contract is explicitly reviewed via a Pull Request and validated in CI.
 
 This approach allows contract changes to be detected before reaching production.
+
+For consumer-driven contract testing I would explore tools such as Pact, though I have not worked with it yet.
 
 ---
 
@@ -144,16 +132,11 @@ For CI/CD:
 
 For reporting:
 
-* Allure Report
-
-For API mocking:
-
-* Prism
-* WireMock
+* So far I have worked with Codeception's native HTML reporter. Going forward I would integrate Allure Report via the allure-codeception adapter, which provides richer HTML reports with test history and timeline — features the native reporter does not offer.
 
 For contract validation:
 
-* OpenAPI
+* OpenAPI specification (as described above)
 
 For AI-assisted development:
 

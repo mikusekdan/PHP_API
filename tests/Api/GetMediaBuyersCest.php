@@ -22,8 +22,7 @@ class GetMediaBuyersCest
         $this->client->getAll();
 
         $I->seeResponseCodeIs(HttpCode::OK);
-        $I->seeResponseIsJson();
-        $I->seeHttpHeader('Content-Type', 'application/json');
+        $I->seeJsonContentType();
 
         $I->seeResponseIsValidOnJsonSchema(
             codecept_root_dir('tests/schemas/get-media-buyers-schema.json')
