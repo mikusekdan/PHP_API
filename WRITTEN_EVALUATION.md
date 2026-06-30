@@ -109,40 +109,11 @@ For consumer-driven contract testing I would explore tools such as Pact, though 
 
 # 4. If you owned the QA process for this API, which tools (including AI) would you use for test generation, maintenance, flakiness detection, and reporting — and why?
 
-For API automation I would primarily use:
+I would use PHP with Codeception, the REST module, and JSON Schema validation for API automation, GitHub Actions for CI/CD, and for reporting I would integrate Allure Report via the allure-codeception adapter (so far I have worked with Codeception's native HTML reporter — Allure adds richer test history and timeline), and an OpenAPI specification for contract validation.
 
-* PHP
-* Codeception
-* REST module
-* JSON Schema validation
+To reduce flakiness, I would isolate test data, avoid interdependent tests, and use GitHub Actions re-runs or Codeception's `@retry` annotation when appropriate.
 
-For CI/CD:
-
-* GitHub Actions
-
-For reporting and flakiness detection:
-
-* So far I have worked with Codeception's native HTML reporter. Going forward I would integrate Allure Report via the allure-codeception adapter, which provides richer HTML reports with test history and timeline — making it straightforward to spot tests that inconsistently pass or fail across CI runs. The primary prevention for flakiness in API testing is test data isolation — each test creates its own payload rather than depending on state left by a previous test. For persistent failures GitHub Actions supports re-running failed jobs, and Codeception provides a `@retry` annotation for individual tests.
-
-For contract validation:
-
-* OpenAPI specification (as described above)
-
-For AI-assisted development:
-
-* ChatGPT
-* Claude Code
-
-I would primarily use AI for:
-
-* generating test ideas
-* reviewing test coverage
-* generating payload builders
-* identifying duplicated assertions
-* explaining unfamiliar APIs
-* suggesting refactoring opportunities
-
-AI accelerates development, but all generated code should still be reviewed manually.
+For AI-assisted development, I would use ChatGPT and Claude Code to generate test ideas, review test coverage, create payload builders and suggest refactoring. All AI-generated code should still be manually reviewed.
 
 ---
 
