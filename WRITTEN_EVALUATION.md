@@ -138,6 +138,10 @@ For contract validation:
 
 * OpenAPI specification (as described above)
 
+For flakiness detection:
+
+* I would rely on Allure Report's test history, which highlights tests that inconsistently pass or fail across CI runs. The primary prevention in API testing is test data isolation — each test creates its own payload rather than depending on state left by a previous test. For persistent failures GitHub Actions supports re-running failed jobs, and Codeception provides a `@retry` annotation for individual tests.
+
 For AI-assisted development:
 
 * ChatGPT
