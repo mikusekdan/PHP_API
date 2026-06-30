@@ -138,7 +138,7 @@ Instead of implementing every acceptance criterion, I selected representative sc
 | P9 | Same format-validation pattern as P6 |
 | P10 | Same type-validation category; positive path already covered by the happy-path test |
 
-Full reasoning is in `WRITTEN_EVALUATION.md`, Q1.
+Full reasoning is in the Written Evaluation document (submitted separately).
 
 ---
 
