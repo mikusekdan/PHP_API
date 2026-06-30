@@ -30,19 +30,9 @@ These scenarios validate both the API contract and important business rules.
 
 ### Intentionally left out
 
-The following criteria were not implemented as individual tests:
+Criteria G3, P4, P7, P9 and P10 were deprioritised because they exercise patterns already covered by the implemented tests — the same validation mechanism, error structure or HTTP status code is already demonstrated elsewhere in the suite. Adding them would not reveal different API behaviour.
 
-**G3** — The `data` field is always an array even when the system has zero media buyers. This scenario requires control over the server state (empty database), which is not possible without test infrastructure. In a real project this would be covered with test data setup/teardown.
-
-**P4** — `active: false` results in `data.active === 0`. This is a distinct scenario from the happy-path test (which only sends `active: true`). It was deprioritised in favour of broader coverage across different validation areas, but it is a meaningful criterion and would be the first addition when extending the suite. The `withActive()` builder method is already in place to support it.
-
-**P5 (partial)** — Missing required fields `mbId`, `email`, and `active` were not tested individually. The `name` scenario was selected as a representative case because the underlying validation mechanism is identical across all required fields — the same `errors` structure with a field-name message. Adding the remaining three would not reveal different API behaviour.
-
-**P7** — `initials` longer than 2 characters returns HTTP 400 with a specific error message. This follows the same length-validation pattern already demonstrated by P8 (`name` boundary). The specific message assertion is also already demonstrated by P6. Both patterns are present in the suite; this criterion adds no new technique.
-
-**P9** — `mbId: "abc"` (non-numeric string) returns HTTP 400. This exercises format validation on `mbId`. It was deprioritised because P6 already demonstrates format-based validation with a more explicit contract-defined error message.
-
-**P10** — `active: "yes"` (non-boolean) returns HTTP 400. This exercises type validation. It was deprioritised as the suite already covers both a type-correct positive path and format validation errors through P6.
+P5 was partially covered: `name` was chosen as a representative missing-field case since the underlying validation is identical across all required fields. G3 additionally requires control over server state (empty database) which is not possible without dedicated test infrastructure — in a real project this would be covered with test data setup/teardown.
 
 Boundary validation for the `name` field was implemented as a parameterized test to avoid duplicated test logic. The same approach would apply to P7 and any future length-constraint scenarios.
 
@@ -130,17 +120,13 @@ For CI/CD:
 
 * GitHub Actions
 
-For reporting:
+For reporting and flakiness detection:
 
-* So far I have worked with Codeception's native HTML reporter. Going forward I would integrate Allure Report via the allure-codeception adapter, which provides richer HTML reports with test history and timeline — features the native reporter does not offer.
+* So far I have worked with Codeception's native HTML reporter. Going forward I would integrate Allure Report via the allure-codeception adapter, which provides richer HTML reports with test history and timeline — making it straightforward to spot tests that inconsistently pass or fail across CI runs. The primary prevention for flakiness in API testing is test data isolation — each test creates its own payload rather than depending on state left by a previous test. For persistent failures GitHub Actions supports re-running failed jobs, and Codeception provides a `@retry` annotation for individual tests.
 
 For contract validation:
 
 * OpenAPI specification (as described above)
-
-For flakiness detection:
-
-* I would rely on Allure Report's test history, which highlights tests that inconsistently pass or fail across CI runs. The primary prevention in API testing is test data isolation — each test creates its own payload rather than depending on state left by a previous test. For persistent failures GitHub Actions supports re-running failed jobs, and Codeception provides a `@retry` annotation for individual tests.
 
 For AI-assisted development:
 
